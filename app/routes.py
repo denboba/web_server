@@ -1,141 +1,275 @@
+"""write doc here"""
+import logging
+
 from app import webserver
 from flask import request, jsonify
 
 import os
-import json
 
 # Example endpoint definition
-@webserver.route('/api/post_endpoint', methods=['POST'])
-def post_endpoint():
-    if request.method == 'POST':
-        # Assuming the request contains JSON data
-        data = request.json
-        print(f"got data in post {data}")
+logger = logging.getLogger('webserver')
 
-        # Process the received data
-        # For demonstration purposes, just echoing back the received data
-        response = {"message": "Received data successfully", "data": data}
 
-        # Sending back a JSON response
-        return jsonify(response)
-    else:
-        # Method Not Allowed
-        return jsonify({"error": "Method not allowed"}), 405
+def get_next_job_id():
+    """"write doc here"""
+    job_id = f"job_id_{webserver.job_counter}"
+    webserver.job_counter += 1
+    return job_id
+
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_response(job_id):
-    print(f"JobID is {job_id}")
-    # TODO
-    # Check if job_id is valid
+    """"write doc here"""
+    logger.info(f'Get results for job_id: {job_id}')
 
-    # Check if job_id is done and return the result
-    #    res = res_for(job_id)
-    #    return jsonify({
-    #        'status': 'done',
-    #        'data': res
-    #    })
+    if not webserver.tasks_runner.is_job_done(job_id):
+        return jsonify({'status': 'running'})
+    result = webserver.tasks_runner.get_job_result(job_id)
+    if result is None:
+        return jsonify({'status': 'error', 'reason': 'Invalid job_id'})
 
-    # If not, return running status
-    return jsonify({'status': 'NotImplemented'})
+    return jsonify({'status': 'done', 'data': result})
+
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
-    # Get request data
+    """"write doc here"""
     data = request.json
-    print(f"Got request {data}")
+    logger.info(f'States mean request: {data}')
 
-    # TODO
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
 
-    return jsonify({"status": "NotImplemented"})
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.states_mean,
+        data['question']
+    )
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'State mean request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data or 'state' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question or state parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.state_mean,
+        data['question'],
+        data['state']
+    )
+
+    return jsonify({'job_id': job_id})
 
 
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'Best5 request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.best5,
+        data['question']
+    )
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/worst5', methods=['POST'])
 def worst5_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'Worst5 request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.worst5,
+        data['question']
+    )
+
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/global_mean', methods=['POST'])
 def global_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'Global mean request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.global_mean,
+        data['question']
+    )
+
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/diff_from_mean', methods=['POST'])
 def diff_from_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'Diff from mean request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.diff_from_mean,
+        data['question']
+    )
+
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/state_diff_from_mean', methods=['POST'])
 def state_diff_from_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'State diff from mean request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data or 'state' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question or state parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.state_diff_from_mean,
+        data['question'],
+        data['state']
+    )
+
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/mean_by_category', methods=['POST'])
 def mean_by_category_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'Mean by category request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.mean_by_category,
+        data['question']
+    )
+
+    return jsonify({'job_id': job_id})
+
 
 @webserver.route('/api/state_mean_by_category', methods=['POST'])
 def state_mean_by_category_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    """"write doc here"""
+    data = request.json
+    logger.info(f'State mean by category request: {data}')
 
-    return jsonify({"status": "NotImplemented"})
+    if 'question' not in data or 'state' not in data:
+        return jsonify({
+            'status': 'error',
+            'reason': 'Missing question or state parameter'
+        })
+
+    job_id = get_next_job_id()
+    webserver.tasks_runner.add_task(
+        job_id,
+        webserver.data_ingestor.state_mean_by_category,
+        data['question'],
+        data['state']
+    )
+
+    return jsonify({'job_id': job_id})
+
+
+@webserver.route('/api/graceful_shutdown', methods=['GET'])
+def graceful_shutdown():
+    """"write doc here"""
+    logger.info('Graceful shutdown requested')
+    webserver.tasks_runner.graceful_shutdown()
+
+    if not webserver.tasks_runner.job_queue.empty():
+        return jsonify({'status': 'running'})
+
+    return jsonify({'status': 'done'})
+
+
+@webserver.route('/api/jobs', methods=['GET'])
+def jobs():
+    """"write doc here"""
+    logger.info('Jobs status requested')
+
+    # List all files in results directory
+    job_files = [f for f in os.listdir('results') if f.endswith('.json')]
+    job_statuses = [{
+        f.replace('.json', ''): 'done'
+    } for f in job_files]
+
+    return jsonify({
+        'status': 'done',
+        'data': job_statuses
+    })
+
+
+@webserver.route('/api/num_jobs', methods=['GET'])
+def num_jobs():
+    logger.info('Number of jobs requested')
+    return jsonify({'num_jobs': webserver.tasks_runner.job_queue.qsize()})
+
 
 # You can check localhost in your browser to see what this displays
 @webserver.route('/')
 @webserver.route('/index')
 def index():
+    """"write doc here"""
     routes = get_defined_routes()
     msg = f"Hello, World!\n Interact with the webserver using one of the defined routes:\n"
 
@@ -147,7 +281,9 @@ def index():
     msg += paragraphs
     return msg
 
+
 def get_defined_routes():
+    """"write doc here"""
     routes = []
     for rule in webserver.url_map.iter_rules():
         methods = ', '.join(rule.methods)
