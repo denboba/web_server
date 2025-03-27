@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09b88069-7cfa-4fdf-91df-57b554d9b851" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/debug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unittests/TestWebserver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unittests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/1-le-stats-sportif.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/1-le-stats-sportif.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/data_ingestor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/data_ingestor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/task_runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/task_runner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checker/checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/checker/checker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diff_from_mean.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webserver.log" beforeDir="false" afterPath="$PROJECT_DIR$/webserver.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,18 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "denboba"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;denboba&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/denboba/web_server.git",
-    "accountId": "fe715f92-9002-4019-a32e-243cbc7af8c5"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/denboba/web_server.git&quot;,
+    &quot;accountId&quot;: &quot;fe715f92-9002-4019-a32e-243cbc7af8c5&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -50,14 +55,25 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests in TestWebserver.py.executor": "Run",
+    "Python.TestWebserver.executor": "Run",
     "Python.__init__.executor": "Run",
     "Python.data_ingestor.executor": "Run",
     "Python.debug.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/abdi/PycharmProjects/asc-public/assignments/1-le-stats-sportif/unittests"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/unittests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/unittests" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

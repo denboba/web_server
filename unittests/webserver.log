@@ -1,0 +1,2 @@
+2025-03-27 12:15:29 EET - webserver - INFO - Thread pool initialized (LINE:24) FILE:__init__.py
+2025-03-27 12:15:29 EET - webserver - ERROR - Error reading file ./nutrition_activity_obesity_usa_subset.csv:[Errno 2] No such file or directory: './nutrition_activity_obesity_usa_subset.csv' (LINE:49) FILE:data_ingestor.py

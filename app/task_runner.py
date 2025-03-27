@@ -1,7 +1,7 @@
 """ Thread pool implementation """
 import os
 import json
-from queue import Queue
+from queue import Queue, Empty
 from threading import Thread, Event
 import multiprocessing
 import logging
@@ -12,6 +12,7 @@ class ThreadPool:
     """ Thread pool implementation """
 
     def __init__(self):
+        self.logger = logging.getLogger('webserver')
         self.job_queue = Queue()
         self.shutdown_event = Event()
         self.num_threads = int(os.getenv('TP_NUM_OF_THREADS', multiprocessing.cpu_count()))
@@ -41,11 +42,22 @@ class ThreadPool:
         return os.path.exists(f'results/{job_id}.json')
 
     def get_job_result(self, job_id: str) -> Optional[Any]:
-        """ Get the result of a job """
+        """ Get the result of a completed job """
+        file_path = f'results/{job_id}.json'
         try:
-            with open(f'results/{job_id}.json', 'r', encoding='utf-8') as f:
+            if not os.path.exists(file_path):
+                self.logger.error('File %s does not exist', file_path)
+            if os.path.getsize(file_path) == 0:
+                self.logger.error("Job result file is empty: %s", file_path)
+            with open(file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except FileNotFoundError:
+        except json.JSONDecodeError as e:
+            self.logger.error("Failed to decode JSON from file %s: %s",
+                              file_path, str(e))
+            return None
+        except Exception as e:
+            self.logger.critical("Unexpected error reading job result %s: %s",
+                                 file_path, str(e), exc_info=True)
             return None
 
 
@@ -60,21 +72,29 @@ class TaskRunner(Thread):
 
     def run(self):
         while not self.shutdown_event.is_set():
-            job_id, task_func, args, kwargs = self.job_queue.get(timeout=1)
-            self._process_job(job_id, task_func, args, kwargs)
+            try:
+                job_id, task_func, args, kwargs = self.job_queue.get(timeout=1)
+                self._process_job(job_id, task_func, args, kwargs)
+            except Empty:
+                continue
+            except (KeyError, TypeError, ValueError) as e:
+                self.logger.error('Runner error: %s: %s', type(e).__name__, str(e))
+            except Exception as e:
+                self.logger.critical('Unexpected error: %s: %s',
+                                     type(e).__name__, str(e), exc_info=True)
 
     def _process_job(self, job_id: str, task_func, args, kwargs):
         """Process an individual job with error handling"""
         try:
-            self.logger.info(f'Starting job {job_id}')
+            self.logger.info('Starting job %s', job_id)
             result = task_func(*args, **kwargs)
 
             with open(f'results/{job_id}.json', 'w', encoding='utf-8') as f:
                 json.dump(result, f)
 
-            self.logger.info(f'Completed job {job_id}')
+            self.logger.info('Completed job %s', job_id)
         except Exception as e:
-            self.logger.error(f'Error in job {job_id}: {str(e)}')
+            self.logger.error('Error in job %s: %s', job_id, str(e))
             with open(f'results/{job_id}.json', 'w', encoding='utf-8') as f:
                 json.dump({'status': 'error', 'reason': str(e)}, f)
         finally:

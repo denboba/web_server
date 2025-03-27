@@ -1,10 +1,8 @@
 """write doc here"""
 import logging
-
-from app import webserver
-from flask import request, jsonify
-
 import os
+from flask import request, jsonify
+from app import webserver
 
 # Example endpoint definition
 logger = logging.getLogger('webserver')
@@ -20,7 +18,7 @@ def get_next_job_id():
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_response(job_id):
     """"write doc here"""
-    logger.info(f'Get results for job_id: {job_id}')
+    logger.info('Get results for job_id: %s', job_id)
 
     if not webserver.tasks_runner.is_job_done(job_id):
         return jsonify({'status': 'running'})
@@ -35,7 +33,7 @@ def get_response(job_id):
 def states_mean_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'States mean request: {data}')
+    logger.info('States mean request: %s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -56,7 +54,7 @@ def states_mean_request():
 def state_mean_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'State mean request: {data}')
+    logger.info('State mean request %s', data)
 
     if 'question' not in data or 'state' not in data:
         return jsonify({
@@ -79,7 +77,7 @@ def state_mean_request():
 def best5_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'Best5 request: {data}')
+    logger.info('Best5 request: %s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -100,7 +98,7 @@ def best5_request():
 def worst5_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'Worst5 request: {data}')
+    logger.info('Worst5 request %s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -122,7 +120,7 @@ def worst5_request():
 def global_mean_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'Global mean request: {data}')
+    logger.info('Global mean request %s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -144,7 +142,7 @@ def global_mean_request():
 def diff_from_mean_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'Diff from mean request: {data}')
+    logger.info('Diff from mean request:%s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -166,7 +164,7 @@ def diff_from_mean_request():
 def state_diff_from_mean_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'State diff from mean request: {data}')
+    logger.info('State diff from mean request: %s', data)
 
     if 'question' not in data or 'state' not in data:
         return jsonify({
@@ -189,7 +187,7 @@ def state_diff_from_mean_request():
 def mean_by_category_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'Mean by category request: {data}')
+    logger.info('Mean by category request :%s', data)
 
     if 'question' not in data:
         return jsonify({
@@ -211,7 +209,7 @@ def mean_by_category_request():
 def state_mean_by_category_request():
     """"write doc here"""
     data = request.json
-    logger.info(f'State mean by category request: {data}')
+    logger.info('State mean by category request: %s', data)
 
     if 'question' not in data or 'state' not in data:
         return jsonify({
@@ -261,6 +259,7 @@ def jobs():
 
 @webserver.route('/api/num_jobs', methods=['GET'])
 def num_jobs():
+    """write doc here"""
     logger.info('Number of jobs requested')
     return jsonify({'num_jobs': webserver.tasks_runner.job_queue.qsize()})
 
@@ -271,7 +270,7 @@ def num_jobs():
 def index():
     """"write doc here"""
     routes = get_defined_routes()
-    msg = f"Hello, World!\n Interact with the webserver using one of the defined routes:\n"
+    msg = "Hello, World!\n Interact with the webserver using one of the defined routes:\n"
 
     # Display each route as a separate HTML <p> tag
     paragraphs = ""

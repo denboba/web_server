@@ -7,6 +7,7 @@ from time import sleep
 import os
 
 import sys
+
 try:
     from io import StringIO
 except:
@@ -26,6 +27,7 @@ START_TIMESTAMP = datetime.now()
 GLOBAL_TIMEOUT_MINUTES = 5
 GLOBAL_TIMEOUT_SECONDS = GLOBAL_TIMEOUT_MINUTES * 60
 
+
 class TestAPI(unittest.TestCase):
     def check_global_timeout(self):
         current_timestamp = datetime.now()
@@ -33,15 +35,15 @@ class TestAPI(unittest.TestCase):
         if time_delta.seconds > GLOBAL_TIMEOUT_SECONDS:
             self.fail("Checker absolute timeout. Checking took too long. Ending..")
 
-    def check_res_timeout(self, res_callable, ref_result, timeout_sec, poll_interval = 0.2):
+    def check_res_timeout(self, res_callable, ref_result, timeout_sec, poll_interval=0.2):
         initial_timestamp = datetime.now()
         while True:
             response = res_callable()
             # print(response)
-        
+
             # Asserting that the response status code is 200 (OK)
             self.assertEqual(response.status_code, 200)
-        
+
             # Asserting the response data
             response_data = response.json()
             # print(f"Response_data\n{response_data}")
@@ -49,6 +51,9 @@ class TestAPI(unittest.TestCase):
                 # print(f"Response data {response_data['data']} and type {type(response_data['data'])}")
                 # print(f"Ref data {ref_result} and type {type(ref_result)}")
                 d = DeepDiff(response_data['data'], ref_result, math_epsilon=0.01)
+                if d != {}:
+                    print(f"Response data {response_data['data']} and type {type(response_data['data'])}")
+                    print(f"Ref data {ref_result} and type {type(ref_result)}")
                 self.assertTrue(d == {}, str(d))
                 break
             elif response_data['status'] == 'running':
@@ -129,7 +134,7 @@ class TestAPI(unittest.TestCase):
 
             with open(f"{output_dir}/out-{idx}.json", "r") as fout:
                 ref_result = json.load(fout)
-            
+
             with self.subTest():
                 # Sending a POST request to the Flask endpoint
                 res = requests.post(f"http://127.0.0.1:5000/api/{endpoint}", json=req_data)
@@ -139,9 +144,9 @@ class TestAPI(unittest.TestCase):
                 job_id = job_id["job_id"]
 
                 self.check_res_timeout(
-                    res_callable = lambda: requests.get(f"http://127.0.0.1:5000/api/get_results/{job_id}"),
-                    ref_result = ref_result,
-                    timeout_sec = 3)
+                    res_callable=lambda: requests.get(f"http://127.0.0.1:5000/api/get_results/{job_id}"),
+                    ref_result=ref_result,
+                    timeout_sec=3)
 
                 local_score += test_score
         total_score += min(round(local_score), test_suite_score)
@@ -179,6 +184,7 @@ class TestAPI(unittest.TestCase):
         if score < 8:
             total_score -= 10
             self.fail("Low pylint score. Deducting 10 pts penalty.")
+
 
 if __name__ == '__main__':
     try:
