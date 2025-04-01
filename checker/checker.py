@@ -51,9 +51,7 @@ class TestAPI(unittest.TestCase):
                 # print(f"Response data {response_data['data']} and type {type(response_data['data'])}")
                 # print(f"Ref data {ref_result} and type {type(ref_result)}")
                 d = DeepDiff(response_data['data'], ref_result, math_epsilon=0.01)
-                if d != {}:
-                    print(f"Response data {response_data['data']} and type {type(response_data['data'])}")
-                    print(f"Ref data {ref_result} and type {type(ref_result)}")
+
                 self.assertTrue(d == {}, str(d))
                 break
             elif response_data['status'] == 'running':

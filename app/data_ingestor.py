@@ -76,15 +76,18 @@ class DataIngestor:
         result = self.df[self.df['Question'] == question].copy()
         result.loc[:, 'Data_Value'] = pd.to_numeric(result['Data_Value'], errors='coerce')
         average = result.groupby('LocationDesc')['Data_Value'].mean().dropna()
-        return average.nsmallest(5).to_dict()
+        if question in self.questions_best_is_min:
+            return average.nsmallest(5).to_dict()
+        return average.nlargest(5).to_dict()
 
     def worst5(self, question: str):
         """"write doc here"""
         result = self.df[self.df['Question'] == question].copy()
         result.loc[:, 'Data_Value'] = pd.to_numeric(result['Data_Value'], errors='coerce')
         average = result.groupby('LocationDesc')['Data_Value'].mean().dropna()
-
-        return average.nlargest(5).to_dict()
+        if question in self.questions_best_is_min:
+            return average.nlargest(5).to_dict()
+        return average.nsmallest(5).to_dict()
 
     def global_mean(self, question: str):
         """"write doc here"""
