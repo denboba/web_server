@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09b88069-7cfa-4fdf-91df-57b554d9b851" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/data_ingestor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/data_ingestor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webserver.log" beforeDir="false" afterPath="$PROJECT_DIR$/webserver.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/TestWebserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/TestWebserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unittests/data_ingestor.py" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/data_ingestor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,20 +46,20 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests in TestWebserver.py.executor": "Run",
-    "Python.TestWebserver.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.data_ingestor.executor": "Run",
-    "Python.debug.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/abdi/PycharmProjects/asc-public/assignments/1-le-stats-sportif/unittests",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in TestWebserver.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TestWebserver.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_ingestor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/abdi/PycharmProjects/asc-public/assignments/1-le-stats-sportif/unittests&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/unittests" />
@@ -87,6 +88,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_le_stats_sportif$tem.coverage" NAME="tem Coverage Results" MODIFIED="1743487910286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/1_le_stats_sportif$.coverage" NAME=" Coverage Results" MODIFIED="1743489888854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unittests" />
+    <SUITE FILE_PATH="coverage/1_le_stats_sportif$.coverage" NAME=" Coverage Results" MODIFIED="1743700863743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unittests" />
   </component>
 </project>
