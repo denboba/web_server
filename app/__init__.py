@@ -25,7 +25,7 @@ logger.info('Thread pool initialized')
 
 # webserver.task_runner.start()
 
-webserver.data_ingestor = DataIngestor("./nutrition_activity_obesity_usa_subset.csv")
+webserver.data_ingestor = DataIngestor("../nutrition_activity_obesity_usa_subset.csv")
 logger.info('Data ingestor initialized')
 
 webserver.job_counter = 1

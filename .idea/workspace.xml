@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09b88069-7cfa-4fdf-91df-57b554d9b851" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittests/TestWebserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/TestWebserver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unittests/data_ingestor.py" beforeDir="false" afterPath="$PROJECT_DIR$/unittests/data_ingestor.py" afterDir="false" />
     </list>
@@ -88,6 +87,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_le_stats_sportif$tem.coverage" NAME="tem Coverage Results" MODIFIED="1743487910286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/1_le_stats_sportif$.coverage" NAME=" Coverage Results" MODIFIED="1743700863743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unittests" />
+    <SUITE FILE_PATH="coverage/1_le_stats_sportif$.coverage" NAME=" Coverage Results" MODIFIED="1743701066913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unittests" />
   </component>
 </project>

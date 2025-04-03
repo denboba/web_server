@@ -1,8 +1,7 @@
 import json
 import unittest
 import os
-
-from data_ingestor import DataIngestor
+from app.data_ingestor import DataIngestor
 
 data_ingestor = DataIngestor("../nutrition_activity_obesity_usa_subset.csv")
 
