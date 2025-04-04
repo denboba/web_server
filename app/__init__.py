@@ -1,4 +1,4 @@
-"""" Main module """
+""""The initializer module for the webserver. """
 import os
 import logging
 from flask import Flask
@@ -22,10 +22,14 @@ logger = logging.getLogger('webserver')
 
 webserver.tasks_runner = ThreadPool()
 logger.info('Thread pool initialized')
-
+local_file = "./nutrition_activity_obesity_usa_subset.csv"
+fallback_file = "../nutrition_activity_obesity_usa_subset.csv"
 # webserver.task_runner.start()
 
-webserver.data_ingestor = DataIngestor("../nutrition_activity_obesity_usa_subset.csv")
+if os.path.exists(local_file):
+    webserver.data_ingestor = DataIngestor(local_file)
+else:
+    webserver.data_ingestor = DataIngestor(fallback_file)
 logger.info('Data ingestor initialized')
 
 webserver.job_counter = 1

@@ -9,7 +9,7 @@ logger = logging.getLogger('webserver')
 
 
 def get_next_job_id():
-    """"write doc here"""
+    """this function returns the next job id"""
     job_id = f"job_id_{webserver.job_counter}"
     webserver.job_counter += 1
     return job_id
@@ -17,7 +17,7 @@ def get_next_job_id():
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_response(job_id):
-    """"write doc here"""
+    """"this function returns the results"""
     logger.info('Get results for job_id: %s', job_id)
 
     if not webserver.tasks_runner.is_job_done(job_id):
@@ -31,7 +31,7 @@ def get_response(job_id):
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
-    """"write doc here"""
+    """method to request states mean"""
     data = request.json
     logger.info('States mean request: %s', data)
 
@@ -52,7 +52,7 @@ def states_mean_request():
 
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
-    """"write doc here"""
+    """function to request state mean"""
     data = request.json
     logger.info('State mean request %s', data)
 
@@ -75,7 +75,7 @@ def state_mean_request():
 
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
-    """"write doc here"""
+    """function to request best5 states"""
     data = request.json
     logger.info('Best5 request: %s', data)
 
@@ -96,7 +96,7 @@ def best5_request():
 
 @webserver.route('/api/worst5', methods=['POST'])
 def worst5_request():
-    """"write doc here"""
+    """function to request worst5 states"""
     data = request.json
     logger.info('Worst5 request %s', data)
 
@@ -118,7 +118,7 @@ def worst5_request():
 
 @webserver.route('/api/global_mean', methods=['POST'])
 def global_mean_request():
-    """"write doc here"""
+    """"function to request global mean"""
     data = request.json
     logger.info('Global mean request %s', data)
 
@@ -140,7 +140,7 @@ def global_mean_request():
 
 @webserver.route('/api/diff_from_mean', methods=['POST'])
 def diff_from_mean_request():
-    """"write doc here"""
+    """function to request diff from mean"""
     data = request.json
     logger.info('Diff from mean request:%s', data)
 
@@ -162,7 +162,7 @@ def diff_from_mean_request():
 
 @webserver.route('/api/state_diff_from_mean', methods=['POST'])
 def state_diff_from_mean_request():
-    """"write doc here"""
+    """function to request state diff from mean"""
     data = request.json
     logger.info('State diff from mean request: %s', data)
 
@@ -185,7 +185,7 @@ def state_diff_from_mean_request():
 
 @webserver.route('/api/mean_by_category', methods=['POST'])
 def mean_by_category_request():
-    """"write doc here"""
+    """function to request mean by category"""
     data = request.json
     logger.info('Mean by category request :%s', data)
 
@@ -207,7 +207,7 @@ def mean_by_category_request():
 
 @webserver.route('/api/state_mean_by_category', methods=['POST'])
 def state_mean_by_category_request():
-    """"write doc here"""
+    """function to request state mean by category state"""
     data = request.json
     logger.info('State mean by category request: %s', data)
 
@@ -230,7 +230,7 @@ def state_mean_by_category_request():
 
 @webserver.route('/api/graceful_shutdown', methods=['GET'])
 def graceful_shutdown():
-    """"write doc here"""
+    """"function for graceful shutdown"""
     logger.info('Graceful shutdown requested')
     webserver.tasks_runner.graceful_shutdown()
 
@@ -242,7 +242,7 @@ def graceful_shutdown():
 
 @webserver.route('/api/jobs', methods=['GET'])
 def jobs():
-    """"write doc here"""
+    """provides status of all jobs"""
     logger.info('Jobs status requested')
 
     # List all files in results directory
@@ -259,7 +259,7 @@ def jobs():
 
 @webserver.route('/api/num_jobs', methods=['GET'])
 def num_jobs():
-    """write doc here"""
+    """provides number of jobs in queue"""
     logger.info('Number of jobs requested')
     return jsonify({'num_jobs': webserver.tasks_runner.job_queue.qsize()})
 
@@ -268,7 +268,7 @@ def num_jobs():
 @webserver.route('/')
 @webserver.route('/index')
 def index():
-    """"write doc here"""
+    """function for index page"""
     routes = get_defined_routes()
     msg = "Hello, World!\n Interact with the webserver using one of the defined routes:\n"
 
@@ -282,7 +282,7 @@ def index():
 
 
 def get_defined_routes():
-    """"write doc here"""
+    """"function to get defined routes"""
     routes = []
     for rule in webserver.url_map.iter_rules():
         methods = ', '.join(rule.methods)
