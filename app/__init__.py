@@ -22,14 +22,13 @@ logger = logging.getLogger('webserver')
 
 webserver.tasks_runner = ThreadPool()
 logger.info('Thread pool initialized')
-local_file = "./nutrition_activity_obesity_usa_subset.csv"
-fallback_file = "../nutrition_activity_obesity_usa_subset.csv"
-# webserver.task_runner.start()
+LOCAL_FILE = "./nutrition_activity_obesity_usa_subset.csv"
+FALLBACK_FILE = "../nutrition_activity_obesity_usa_subset.csv"
 
-if os.path.exists(local_file):
-    webserver.data_ingestor = DataIngestor(local_file)
+if os.path.exists(LOCAL_FILE):
+    webserver.data_ingestor = DataIngestor(LOCAL_FILE)
 else:
-    webserver.data_ingestor = DataIngestor(fallback_file)
+    webserver.data_ingestor = DataIngestor(FALLBACK_FILE)
 logger.info('Data ingestor initialized')
 
 webserver.job_counter = 1

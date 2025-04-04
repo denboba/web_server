@@ -153,5 +153,3 @@ class DataIngestor:
             state_dict[key] = mean_value
 
         return {state: state_dict}
-
-

@@ -4,7 +4,6 @@ import os
 from flask import request, jsonify
 from app import webserver
 
-# Example endpoint definition
 logger = logging.getLogger('webserver')
 
 

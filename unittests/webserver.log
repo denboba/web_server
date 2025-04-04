@@ -1,4 +1,0 @@
-2025-04-04 12:38:25 EEST - webserver - INFO - Thread pool initialized (LINE:24) FILE:__init__.py
-2025-04-04 12:38:25 EEST - webserver - INFO - Read file ../nutrition_activity_obesity_usa_subset.csv (LINE:48) FILE:data_ingestor.py
-2025-04-04 12:38:25 EEST - webserver - INFO - Data ingestor initialized (LINE:33) FILE:__init__.py
-2025-04-04 12:38:25 EEST - webserver - INFO - Read file ../nutrition_activity_obesity_usa_subset.csv (LINE:48) FILE:data_ingestor.py

@@ -39,7 +39,8 @@ class ThreadPool:
 
     def is_job_done(self, job_id: str) -> bool:
         """ Check if a job is done """
-        return os.path.exists(f'results/{job_id}.json')
+        return (os.path.exists(f'results/{job_id}.json') and
+                os.path.getsize(f'results/{job_id}.json') > 0)
 
     def get_job_result(self, job_id: str) -> Optional[Any]:
         """ Get the result of a completed job """
@@ -54,10 +55,6 @@ class ThreadPool:
         except json.JSONDecodeError as e:
             self.logger.error("Failed to decode JSON from file %s: %s",
                               file_path, str(e))
-            return None
-        except Exception as e:
-            self.logger.critical("Unexpected error reading job result %s: %s",
-                                 file_path, str(e), exc_info=True)
             return None
 
 
@@ -79,9 +76,6 @@ class TaskRunner(Thread):
                 continue
             except (KeyError, TypeError, ValueError) as e:
                 self.logger.error('Runner error: %s: %s', type(e).__name__, str(e))
-            except Exception as e:
-                self.logger.critical('Unexpected error: %s: %s',
-                                     type(e).__name__, str(e), exc_info=True)
 
     def _process_job(self, job_id: str, task_func, args, kwargs):
         """Process an individual job with error handling"""
@@ -93,9 +87,13 @@ class TaskRunner(Thread):
                 json.dump(result, f)
 
             self.logger.info('Completed job %s', job_id)
-        except Exception as e:
-            self.logger.error('Error in job %s: %s', job_id, str(e))
+        except FileNotFoundError as e:
+            self.logger.error('File not found error in job %s: %s', job_id, str(e))
             with open(f'results/{job_id}.json', 'w', encoding='utf-8') as f:
-                json.dump({'status': 'error', 'reason': str(e)}, f)
+                json.dump({'status': 'error', 'reason': 'File not found error: ' + str(e)}, f)
+        except OSError as e:
+            self.logger.error('OS error in job %s: %s', job_id, str(e))
+            with open(f'results/{job_id}.json', 'w', encoding='utf-8') as f:
+                json.dump({'status': 'error', 'reason': 'OS error: ' + str(e)}, f)
         finally:
             self.job_queue.task_done()
